@@ -11,19 +11,20 @@ const subquest = require("subquest");
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 // respuesta de la ruta de raiz en metodo GET
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
   // mostranto el contenido del frontend echo en quasar
   res.header("Content-Type", "text/html");
   res.sendFile(path.join(__dirname + "/../front/dist/spa/index.html"));
 });
 
 // respuesta y analisis por metodo POST
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
   // consultar si el sitio esta disponible
 
   let TYPE = req.body.type;
   // reciviendo el dominio a consultar
   let SITE = req.body.site;
+  console.log(req.body.site);
 
   // preguntar si quiere scanear subdominios
   if (TYPE === "scan") {

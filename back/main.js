@@ -4,6 +4,14 @@ const app = express();
 
 app.use(express.json());
 
+// poniendo cabeceras para aceptar cualquier solicitud
+app.use("/", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Methods", "*");
+  next();
+});
 // rutas
 app.use(require("./routes"));
 
