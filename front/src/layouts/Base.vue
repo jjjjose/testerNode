@@ -7,7 +7,15 @@
         </q-toolbar-title>
         <div>
           created by jjjose
-          <q-btn flat round dense icon="fab fa-github" />
+          <q-btn
+            type="a"
+            href="https://github.com/jjjjose/testerNode"
+            target="_blank"
+            flat
+            round
+            dense
+            icon="fab fa-github"
+          />
         </div>
       </q-toolbar>
     </q-header>
