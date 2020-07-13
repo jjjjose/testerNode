@@ -1,0 +1,22 @@
+{
+  "name": "testernode",
+  "version": "1.0.0",
+  "description": "tester de dominios activos",
+  "main": "main.js",
+  "scripts": {
+    "dev": "nodemon ./back/main.js",
+    "start": "node ./back/main.js"
+  },
+  "keywords": [],
+  "author": "jjjjoseignacio@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.0",
+    "subquest": "^1.5.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
