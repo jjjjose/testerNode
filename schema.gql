@@ -11,4 +11,5 @@ type Domain {
 type Query {
   ping: String!
   scanByCloudflare(domain: String!): [Domain!]!
+  scanBySubquest(dictionary: Float!, dnsServer: String, domain: String!): [Domain!]!
 }

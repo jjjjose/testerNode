@@ -24,6 +24,7 @@
     "express": "^4.18.1",
     "graphql": "15.7.2",
     "reflect-metadata": "^0.1.13",
+    "subquest": "1.5.3",
     "type-graphql": "^1.1.1"
   }
 }
