@@ -1,0 +1,28 @@
+{
+  "name": "tester-node",
+  "version": "2.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev src/index.ts",
+    "build": "rimraf dist && tsc -p .",
+    "start": "node dist/index.js"
+  },
+  "devDependencies": {
+    "prisma": "^4.2.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.4",
+    "rimraf": "3.0.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.2.1",
+    "apollo-server": "^3.10.1",
+    "apollo-server-core": "^3.10.1",
+    "apollo-server-express": "^3.10.1",
+    "class-validator": "^0.13.2",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "graphql": "15.7.2",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.1"
+  }
+}
