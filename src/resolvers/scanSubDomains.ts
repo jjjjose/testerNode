@@ -2,14 +2,19 @@ import { Query, Resolver, Mutation, Arg } from "type-graphql";
 import SubfinderClass from "../class/SubFinderClass";
 import Subquest from "../class/Subquest";
 import VirusTotal from "../class/VirusTotal";
+import hackertargetClass from "../class/hackertarget";
+import crtClass from "../class/crt.sh";
 
 import { Domain } from "../types/Domain";
 
 export class scanSubDomainsResolver {
+  //escanea con la api de cloudflare
   @Query(() => [Domain])
   async scanByCloudflare(@Arg("host", () => String) host: string) {
     return await SubfinderClass.scan(host);
   }
+
+  //escanea con Subquest mediante un diccionario
   @Query(() => [Domain])
   async scanBySubquest(
     @Arg("host", () => String) host: string,
@@ -19,8 +24,40 @@ export class scanSubDomainsResolver {
     dnsServer === undefined || dnsServer === null ? "1.1.1.1" : dnsServer;
     return await Subquest.scan(host, dictionary, dnsServer);
   }
+
+  //escanea con la API de VirusTotal
   @Query(() => [Domain])
   async scanByVirusTotal(@Arg("host", () => String) host: string) {
     return await VirusTotal.scan(host);
+  }
+
+  //escanear con la APi de hackertarget
+  @Query(() => [Domain])
+  async scanByHackertarget(@Arg("host", () => String) host: string) {
+    return await hackertargetClass.scan(host);
+  }
+
+  //escanear con crt.sh
+  @Query(() => [Domain])
+  async scanByCrt(@Arg("host", () => String) host: string) {
+    return await crtClass.scan(host);
+  }
+
+  // escaner con todas | solo API
+  @Query(() => [Domain])
+  async scanAllApis(@Arg("host", () => String) host: string) {
+    let subdomains = [];
+    let subdomains1 = await this.scanByVirusTotal(host);
+    let subdomains2 = await this.scanByHackertarget(host);
+    let subdomains3 = await this.scanByCrt(host);
+    let subdomains4 = await this.scanByCloudflare(host);
+    subdomains = subdomains1.concat(subdomains2, subdomains3, subdomains4);
+
+    // eliminar elentos repetidos del objeto
+    let unique = subdomains.filter(
+      (thing: any, index: any, self: any) =>
+        index === self.findIndex((t: any) => t.subdomain === thing.subdomain)
+    );
+    return unique;
   }
 }

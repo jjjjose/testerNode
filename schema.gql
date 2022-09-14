@@ -4,7 +4,6 @@
 # -----------------------------------------------
 
 type Domain {
-  status: String
   subdomain: String
 }
 
@@ -20,7 +19,10 @@ type PageInfo {
 type Query {
   checkStatus(host: String!, method: String!, type: String!): PageInfo!
   ping: String!
+  scanAllApis(host: String!): [Domain!]!
   scanByCloudflare(host: String!): [Domain!]!
+  scanByCrt(host: String!): [Domain!]!
+  scanByHackertarget(host: String!): [Domain!]!
   scanBySubquest(dictionary: Float!, dnsServer: String, host: String!): [Domain!]!
   scanByVirusTotal(host: String!): [Domain!]!
 }
