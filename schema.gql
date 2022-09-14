@@ -10,6 +10,7 @@ type Domain {
 
 type Query {
   ping: String!
-  scanByCloudflare(domain: String!): [Domain!]!
-  scanBySubquest(dictionary: Float!, dnsServer: String, domain: String!): [Domain!]!
+  scanByCloudflare(host: String!): [Domain!]!
+  scanBySubquest(dictionary: Float!, dnsServer: String, host: String!): [Domain!]!
+  scanByVirusTotal(host: String!): [Domain!]!
 }
