@@ -41,7 +41,7 @@ class VirusTotalClass {
         SUBDOMAINS = [...SUBDOMAINS, ...results];
       }
     } else {
-      SUBDOMAINS = this.convert(subdomain.data);
+      SUBDOMAINS = await this.convert(subdomain.data);
     }
     return SUBDOMAINS;
   }
