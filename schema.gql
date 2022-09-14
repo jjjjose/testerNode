@@ -3,6 +3,12 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Domain {
+  status: String
+  subdomain: String
+}
+
 type Query {
   ping: String!
+  scanByCloudflare(domain: String!): [Domain!]!
 }
