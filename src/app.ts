@@ -25,8 +25,17 @@ export async function startServer() {
 
   //render del build de quasar y mostrar en la ruta /
   app.use("/", serveStatic(__dirname + "/../frontend/dist/spa"));
+  //ver quien entra a la ruta
 
-  app.use(express.json());
+  // app.use(express.json());
+  //habilitar los cors para todo el servidor
+
+  // app.use("/gql", cors(), (req: Request, res: Response, next: NextFunction) => {
+  //   res.header("Access-Control-Allow-Origin", "*");
+  //   res.header("Access-Control-Allow-Headers", "*");
+  //   res.header("Access-Control-Allow-Methods", "*");
+  //   next();
+  // });
 
   // retornando el server
   await server.start();
