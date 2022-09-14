@@ -8,7 +8,17 @@ type Domain {
   subdomain: String
 }
 
+type PageInfo {
+  error: String
+  headers: String
+  site: String!
+  status: Float!
+  statusText: String
+  type: String!
+}
+
 type Query {
+  checkStatus(host: String!, method: String!, type: String!): PageInfo!
   ping: String!
   scanByCloudflare(host: String!): [Domain!]!
   scanBySubquest(dictionary: Float!, dnsServer: String, host: String!): [Domain!]!
