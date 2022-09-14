@@ -17,7 +17,6 @@ class SubquestClass {
             console.log("Error:", err);
             return;
           }
-          console.log(results);
           resolve(this.convert(results));
         }
       );
