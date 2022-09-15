@@ -29,6 +29,8 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 class CheckStatusClass {
   async check(host: string, method: string, type: string) {
     let HOST: string;
+    //convertir a mayusculas method
+    method = method.toUpperCase();
     if (type === "http") {
       HOST = `http://${host}`;
     } else if (type === "https") {
@@ -45,6 +47,7 @@ class CheckStatusClass {
         return {
           type,
           site: res.url,
+          method,
           status: res.status,
           statusText: res.statusText,
           headers: JSON.stringify(res.headers.raw()),
@@ -55,6 +58,7 @@ class CheckStatusClass {
         return {
           type,
           site: HOST,
+          method,
           status: 404,
           error: `${Error(error)}`,
         };

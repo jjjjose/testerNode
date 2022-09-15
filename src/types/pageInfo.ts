@@ -8,6 +8,9 @@ export class PageInfo {
   @Field(() => String)
   site!: string;
 
+  @Field(() => String)
+  method!: string;
+
   @Field(() => String, { nullable: true })
   headers?: string;
 

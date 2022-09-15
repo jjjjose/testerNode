@@ -1,5 +1,5 @@
 import { Query, Resolver, Mutation, Arg } from "type-graphql";
-import SubfinderClass from "../class/SubFinderClass";
+// import SubfinderClass from "../class/SubFinderClass";
 import Subquest from "../class/Subquest";
 import VirusTotal from "../class/VirusTotal";
 import hackertargetClass from "../class/hackertarget";
@@ -9,10 +9,10 @@ import { Domain } from "../types/Domain";
 
 export class scanSubDomainsResolver {
   //escanea con la api de cloudflare
-  @Query(() => [Domain])
-  async scanByCloudflare(@Arg("host", () => String) host: string) {
-    return await SubfinderClass.scan(host);
-  }
+  // @Query(() => [Domain])
+  // async scanByCloudflare(@Arg("host", () => String) host: string) {
+  //   return await SubfinderClass.scan(host);
+  // }
 
   //escanea con Subquest mediante un diccionario
   @Query(() => [Domain])
@@ -50,14 +50,20 @@ export class scanSubDomainsResolver {
     let subdomains1 = await this.scanByVirusTotal(host);
     let subdomains2 = await this.scanByHackertarget(host);
     let subdomains3 = await this.scanByCrt(host);
-    let subdomains4 = await this.scanByCloudflare(host);
-    subdomains = subdomains1.concat(subdomains2, subdomains3, subdomains4);
+    // let subdomains4 = await this.scanByCloudflare(host);
+    subdomains = subdomains1.concat(subdomains2, subdomains3);
 
     // eliminar elentos repetidos del objeto
     let unique = subdomains.filter(
       (thing: any, index: any, self: any) =>
         index === self.findIndex((t: any) => t.subdomain === thing.subdomain)
     );
-    return unique;
+
+    //enumerando los elementos
+    let subdomainsEnumerated = unique.map((element: any, index: number) => {
+      return { id: index + 1, subdomain: element.subdomain };
+    });
+
+    return subdomainsEnumerated;
   }
 }
