@@ -64,6 +64,16 @@ export class scanSubDomainsResolver {
       return { id: index + 1, subdomain: element.subdomain };
     });
 
-    return subdomainsEnumerated;
+    //eliminar el objeto que tenga como caracter exceeded
+    let finalResult = [];
+    for (let i = 0; i < subdomainsEnumerated.length; i++) {
+      const element = subdomainsEnumerated[i];
+      if (element.subdomain.includes("exceeded")) {
+      } else {
+        finalResult.push(element);
+      }
+    }
+
+    return finalResult;
   }
 }
