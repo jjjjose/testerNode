@@ -4,12 +4,14 @@
 # -----------------------------------------------
 
 type Domain {
+  id: Float
   subdomain: String
 }
 
 type PageInfo {
   error: String
   headers: String
+  method: String!
   site: String!
   status: Float!
   statusText: String
@@ -20,7 +22,6 @@ type Query {
   checkStatus(host: String!, method: String!, type: String!): PageInfo!
   ping: String!
   scanAllApis(host: String!): [Domain!]!
-  scanByCloudflare(host: String!): [Domain!]!
   scanByCrt(host: String!): [Domain!]!
   scanByHackertarget(host: String!): [Domain!]!
   scanBySubquest(dictionary: Float!, dnsServer: String, host: String!): [Domain!]!
