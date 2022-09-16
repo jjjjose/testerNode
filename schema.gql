@@ -12,14 +12,15 @@ type PageInfo {
   error: String
   headers: String
   method: String!
+  protocol: String!
+  redirect: Boolean!
   site: String!
   status: Float!
   statusText: String
-  type: String!
 }
 
 type Query {
-  checkStatus(host: String!, method: String!, type: String!): PageInfo!
+  checkStatus(host: String!, method: String!, protocol: String!): PageInfo!
   ping: String!
   scanAllApis(host: String!): [Domain!]!
   scanByCrt(host: String!): [Domain!]!

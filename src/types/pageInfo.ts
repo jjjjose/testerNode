@@ -3,13 +3,16 @@ import { ObjectType, Field, Int, InputType } from "type-graphql";
 @ObjectType()
 export class PageInfo {
   @Field(() => String)
-  type!: number;
+  protocol!: number;
 
   @Field(() => String)
   site!: string;
 
   @Field(() => String)
   method!: string;
+
+  @Field(() => Boolean)
+  redirect!: boolean;
 
   @Field(() => String, { nullable: true })
   headers?: string;

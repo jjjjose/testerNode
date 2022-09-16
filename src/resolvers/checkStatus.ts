@@ -9,8 +9,8 @@ export class scanSubDomainsResolver {
   async checkStatus(
     @Arg("host", () => String) host: string,
     @Arg("method", () => String) method: string,
-    @Arg("type", () => String) type: string
+    @Arg("protocol", () => String) protocol: string
   ) {
-    return await CheckStatusClass.check(host, method, type);
+    return await CheckStatusClass.check(host, method, protocol);
   }
 }

@@ -23,30 +23,54 @@ const fetch = require("node-fetch");
 //     });
 // })();
 
+const methods = [
+  "GET",
+  "POST",
+  "PUT",
+  "DELETE",
+  "PATCH",
+  "HEAD",
+  "OPTIONS",
+  "TRACE",
+];
+
 // desactivando certificado TLS SSL para node-fetch
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 class CheckStatusClass {
-  async check(host: string, method: string, type: string) {
-    let HOST: string;
+  async check(host: string, method: string, protocol: string) {
+    let URL: string;
+
     //convertir a mayusculas method
     method = method.toUpperCase();
-    if (type === "http") {
-      HOST = `http://${host}`;
-    } else if (type === "https") {
-      HOST = `https://${host}`;
-    } else {
-      HOST = `http://${host}`;
-    }
 
-    let pageInfo = await fetch(HOST, {
+    let PROTOCOLS = ["http", "https"];
+
+    if (protocol === "http") {
+      URL = `http://${host}`;
+      if (method !== "ALL") {
+        return await this.viewStatus(URL, method, protocol);
+      }
+    } else if (protocol === "https") {
+      URL = `https://${host}`;
+    } else if (protocol === "all") {
+    }
+  }
+  async viewStatus(url: string, method: string, protocol: string) {
+    let redirect: boolean = false;
+    let pageInfo = await fetch(url, {
       method,
     })
       .then((res: any) => {
+        if (res.redirected) {
+          redirect = true;
+        }
+        // console.log(JSON.stringify(res));
         // devolver los enabezados de la respuesta
         return {
-          type,
-          site: res.url,
+          redirect,
+          protocol,
+          site: url,
           method,
           status: res.status,
           statusText: res.statusText,
@@ -56,8 +80,9 @@ class CheckStatusClass {
       .catch((error: any) => {
         //mostrar error de manera elegante
         return {
-          type,
-          site: HOST,
+          redirect,
+          protocol,
+          site: url,
           method,
           status: 404,
           error: `${Error(error)}`,
