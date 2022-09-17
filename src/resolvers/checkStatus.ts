@@ -1,11 +1,11 @@
 import { Query, Resolver, Mutation, Arg } from "type-graphql";
 import CheckStatusClass from "../class/checkStatus";
 
-import { PageInfo } from "../types/pageInfo";
+import { infoStatusSite } from "../types/pageInfo";
 
 export class scanSubDomainsResolver {
   //chequeo de estado de subdominios
-  @Query(() => PageInfo)
+  @Query(() => infoStatusSite)
   async checkStatus(
     @Arg("host", () => String) host: string,
     @Arg("method", () => String) method: string,

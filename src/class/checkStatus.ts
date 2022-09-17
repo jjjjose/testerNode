@@ -44,16 +44,83 @@ class CheckStatusClass {
     //convertir a mayusculas method
     method = method.toUpperCase();
 
-    let PROTOCOLS = ["http", "https"];
-
     if (protocol === "http") {
       URL = `http://${host}`;
       if (method !== "ALL") {
-        return await this.viewStatus(URL, method, protocol);
+        let infoHTTP = {
+          ["info" + method]: await this.viewStatus(URL, method, protocol),
+        };
+        return { host, infoHTTP };
+      } else {
+        // cuando solicita todos los metodos en http
+        let infoHTTP = {};
+        for (const method of methods) {
+          infoHTTP = {
+            ...infoHTTP,
+            ["info" + method]: await this.viewStatus(URL, method, protocol),
+          };
+        }
+        return { host, infoHTTP };
       }
     } else if (protocol === "https") {
+      //cuando solicita todos los metodos en https
       URL = `https://${host}`;
+      if (method !== "ALL") {
+        let infoHTTPS = {
+          ["info" + method]: await this.viewStatus(URL, method, protocol),
+        };
+        return {
+          host,
+          infoHTTPS,
+        };
+      } else {
+        let infoHTTPS = {};
+        for (const method of methods) {
+          infoHTTPS = {
+            ...infoHTTPS,
+            ["info" + method]: await this.viewStatus(URL, method, protocol),
+          };
+        }
+        return { host, infoHTTPS };
+      }
     } else if (protocol === "all") {
+      if (method !== "ALL") {
+        URL = `http://${host}`;
+        let infoHTTP = {
+          ["info" + method]: await this.viewStatus(URL, method, "http"),
+        };
+        URL = `https://${host}`;
+        let infoHTTPS = {
+          ["info" + method]: await this.viewStatus(URL, method, "https"),
+        };
+        return {
+          host,
+          infoHTTP,
+          infoHTTPS,
+        };
+      } else {
+        URL = `http://${host}`;
+        let infoHTTP = {};
+        for (const method of methods) {
+          infoHTTP = {
+            ...infoHTTP,
+            ["info" + method]: await this.viewStatus(URL, method, "http"),
+          };
+        }
+        URL = `https://${host}`;
+        let infoHTTPS = {};
+        for (const method of methods) {
+          infoHTTPS = {
+            ...infoHTTPS,
+            ["info" + method]: await this.viewStatus(URL, method, "https"),
+          };
+        }
+        return {
+          host,
+          infoHTTP,
+          infoHTTPS,
+        };
+      }
     }
   }
   async viewStatus(url: string, method: string, protocol: string) {
@@ -62,15 +129,18 @@ class CheckStatusClass {
       method,
     })
       .then((res: any) => {
+        let redirectTo = null;
         if (res.redirected) {
           redirect = true;
+          redirectTo = res.url;
         }
-        // console.log(JSON.stringify(res));
+        console.log(`ok method ${method} ${url}`);
         // devolver los enabezados de la respuesta
         return {
           redirect,
+          redirectTo,
           protocol,
-          site: url,
+          siteUrl: url,
           method,
           status: res.status,
           statusText: res.statusText,
@@ -78,11 +148,11 @@ class CheckStatusClass {
         };
       })
       .catch((error: any) => {
+        console.log(`error method ${method} ${url}`);
         //mostrar error de manera elegante
         return {
-          redirect,
           protocol,
-          site: url,
+          siteUrl: url,
           method,
           status: 404,
           error: `${Error(error)}`,
