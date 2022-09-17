@@ -47,9 +47,9 @@ export class scanSubDomainsResolver {
   @Query(() => [Domain])
   async scanAllApis(@Arg("host", () => String) host: string) {
     let subdomains = [];
-    let subdomains1 = await this.scanByVirusTotal(host);
-    let subdomains2 = await this.scanByHackertarget(host);
-    let subdomains3 = await this.scanByCrt(host);
+    let subdomains1 = await this.scanByCrt(host);
+    let subdomains2 = await this.scanByVirusTotal(host);
+    let subdomains3 = await this.scanByHackertarget(host);
     // let subdomains4 = await this.scanByCloudflare(host);
     subdomains = subdomains1.concat(subdomains2, subdomains3);
 

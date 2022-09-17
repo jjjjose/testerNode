@@ -134,7 +134,7 @@ class CheckStatusClass {
           redirect = true;
           redirectTo = res.url;
         }
-        console.log(`ok method ${method} ${url}`);
+        // console.log(`ok method ${method} ${url}`);
         // devolver los enabezados de la respuesta
         return {
           redirect,
@@ -148,7 +148,7 @@ class CheckStatusClass {
         };
       })
       .catch((error: any) => {
-        console.log(`error method ${method} ${url}`);
+        // console.log(`error method ${method} ${url}`);
         //mostrar error de manera elegante
         return {
           protocol,
