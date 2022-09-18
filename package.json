@@ -4,8 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "allinstall": "yarn && cd frontend && yarn && cd ..",
     "dev": "ts-node-dev src/index.ts",
-    "build": "rimraf dist && tsc -p .",
+    "build": "rimraf dist && tsc -p . && cd frontend && quasar build && cd ..",
     "start": "node dist/index.js"
   },
   "devDependencies": {
