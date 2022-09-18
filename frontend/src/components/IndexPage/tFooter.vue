@@ -1,7 +1,7 @@
 <template>
   <!-- <div class="bg-cyan-9 q-pa-sm" :style="{ width: width + 'px' }"> -->
   <div>
-    <q-toolbar class="bg-cyan-9">
+    <q-toolbar class="bg-cyan-9 desktop-hide">
       <div class="full-width q-py-sm">
         <div class="text-caption text-grey-1">
           Busca Subdominios a partir de un HOST madre

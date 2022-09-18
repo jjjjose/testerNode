@@ -21,7 +21,7 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label header> Essential Links </q-item-label>
+        <q-item-label header> Menu </q-item-label>
 
         <EssentialLink
           v-for="link in essentialLinks"
@@ -46,10 +46,10 @@ import EssentialLink, {
 
 const essentialLinks: EssentialLinkProps[] = [
   {
-    title: "Docs",
-    caption: "quasar.dev",
-    icon: "school",
-    link: "https://quasar.dev",
+    title: "Scan all",
+    caption: "escanea subdominios y verifica su estado de cada metodo",
+    icon: "search",
+    link: "/",
   },
 ];
 

@@ -1,21 +1,27 @@
 <template>
-  <q-page class="q-pa-xs">
+  <q-page class="q-pa-md">
+    <div class="q-my-md mobile-hide">
+      <search-desktop />
+    </div>
     <t-list2 />
-    <div class="q-my-xl">.</div>
-    <!-- <q-page-sticky position="bottom" :offset="[0, 0]" class="full-width">
-      <t-footer />
-    </q-page-sticky> -->
-    <q-page-sticky position="bottom-left" :offset="[15, 9]">
+    <div class="q-my-xl desktop-hide">.</div>
+
+    <q-page-sticky
+      position="bottom-left"
+      :offset="[15, 9]"
+      class="desktop-hide"
+    >
       <t-btn-status />
     </q-page-sticky>
     <q-page-sticky
       v-if="subdomainsStore.testingStatus"
       position="bottom-right"
       :offset="[15, 9]"
+      class="desktop-hide"
     >
       <div class="row items-center">
         <q-spinner-hourglass color="light-green" size="2em" />
-        <div class="text-caption">
+        <div class="text-caption column">
           checando status de:
           <q-badge
             rounded
@@ -35,6 +41,7 @@ import TList2 from "src/components/IndexPage/tList2.vue";
 import TBtnStatus from "src/components/IndexPage/tBtnStatus.vue";
 import { useSubdomainsStore } from "src/stores/subdomains";
 import { onMounted } from "vue";
+import SearchDesktop from "src/components/IndexPage/searchDesktop.vue";
 const subdomainsStore = useSubdomainsStore();
 
 onMounted(() => {

@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <div>
     <q-table
       v-if="subdomainsStore.checkStatusTable"
       class="my-sticky-header-column-table"
@@ -19,6 +19,9 @@
               class="caption text-indigo-10"
               target="_blank"
             >
+              <q-tooltip anchor="top right" self="top middle">
+                Visitar...
+              </q-tooltip>
               {{ props.row.subdomain }}
               <q-icon name="launch" />
             </a>
@@ -204,7 +207,7 @@ const pag = {
 
   /* specifying max-width so the example can
     highlight the sticky column on any browser window */
-  max-width: 600px
+  // max-width: 600px
 
   td:first-child
     /* bg color is important for td; just specify one */
