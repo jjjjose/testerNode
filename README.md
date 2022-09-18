@@ -1,8 +1,8 @@
 # testerNode
 
-## Herramienta para escanear posibles subdominios de un Dominio madre o Host, también realiza la prueba o test de status en cada método GET, POST, PUT, etc.
+Herramienta para escanear posibles subdominios de un Dominio madre o Host, también realiza la prueba o test de status en cada método GET, POST, PUT, etc.
 
-**Requisitos**
+## Requisitos
 
 1. GIT
 2. NODEjs v16.17.X^
