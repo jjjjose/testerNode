@@ -17,7 +17,7 @@ Herramienta para escanear posibles subdominios de un Dominio madre o Host, tambi
 - clonar Repositorio, entrar en carpeta e instalar paquetes
 
 ```bash
-git clone https://github.com/jjjjose/testerNode
+git clone https://github.com/jjjjose/testerNode.git
 cd testerNode
 yarn allinstall
 ```
