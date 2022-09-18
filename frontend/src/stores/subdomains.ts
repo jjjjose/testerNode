@@ -2,7 +2,24 @@
 
 import { defineStore } from "pinia";
 import axios, { AxiosInstance } from "axios";
-const URL: any = process.env.API_URL || "http://localhost:3030/gql";
+let PORT_PUBLIC = process.env.PORT_PUBLIC || 3030;
+let IP_PUBLIC = process.env.IP_PUBLIC || "localhost";
+let URL: any;
+let REMOVE_PORT = process.env.REMOVE_PORT || "false";
+let HTTPS = process.env.HTTPS || "false";
+
+if (HTTPS === "true") {
+  URL = `https://${IP_PUBLIC}:${PORT_PUBLIC}/gql`;
+  if (REMOVE_PORT === "true") {
+    URL = `https://${IP_PUBLIC}/gql`;
+  }
+} else {
+  URL = `http://${IP_PUBLIC}:${PORT_PUBLIC}/gql`;
+  if (REMOVE_PORT === "true") {
+    URL = `http://${IP_PUBLIC}/gql`;
+  }
+}
+
 export const useSubdomainsStore = defineStore("subdomains", {
   state: () => ({
     testingTheUrl: "" as string,

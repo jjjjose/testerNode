@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 //apikey env
-const API_KEY = process.env.API_KEY_TOTALVIRUS;
+const API_KEY = process.env.VIRUSTOTAL_API_KEY;
 
 class VirusTotalClass {
   async scan(host: string) {

@@ -6,7 +6,8 @@
   "scripts": {
     "allinstall": "yarn && cd frontend && yarn && cd ..",
     "dev": "ts-node-dev src/index.ts",
-    "build": "rimraf dist && tsc -p . && cd frontend && quasar build && cd ..",
+    "build": "rimraf dist && tsc -p . && yarn copy && cd frontend && quasar build && cd ..",
+    "copy": "npm install copyfiles -g && copyfiles .env frontend/",
     "start": "node dist/index.js"
   },
   "devDependencies": {
