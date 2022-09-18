@@ -2,6 +2,7 @@
   "name": "tester-node",
   "version": "2.0.0",
   "main": "index.js",
+  "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
     "build": "rimraf dist && tsc -p .",
