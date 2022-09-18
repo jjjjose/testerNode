@@ -48,15 +48,19 @@ REMOVE_PORT="false" #si desea usar Docker y reedireccionar el trafico a puerto n
 VIRUSTOTAL_API_KEY="XXXXXXX" #token de virus total
 ```
 
-## Modo de uso
+## Modo de uso Básico
 
 ### Scan de Subdominios
 
-- escriba el host o dominio madre para buscar subdominios
+- escriba el host o dominio madre para buscar subdominios...
+
+![scan](assets/img/escaner-subdominio.png)
 
 ### Test de status en metodos
 
-- haga click al boton `ver Status`
+- haga click al boton `ver Status`, antes debe buscar subdominios...
+
+![scan](assets/img/ver-status.png)
 
 ## LICENSE
 
