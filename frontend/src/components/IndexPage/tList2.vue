@@ -14,7 +14,14 @@
       <template v-slot:body="props">
         <q-tr :props="props">
           <q-td key="subdomain" :props="props">
-            {{ props.row.subdomain }}
+            <a
+              :href="props.row.subdomain"
+              class="caption text-indigo-10"
+              target="_blank"
+            >
+              {{ props.row.subdomain }}
+              <q-icon name="launch" />
+            </a>
           </q-td>
           <!-- datos GET -->
           <q-td key="get" :props="props">

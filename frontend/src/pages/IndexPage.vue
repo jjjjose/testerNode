@@ -5,8 +5,25 @@
     <!-- <q-page-sticky position="bottom" :offset="[0, 0]" class="full-width">
       <t-footer />
     </q-page-sticky> -->
-    <q-page-sticky position="bottom-left" :offset="[15, 15]">
+    <q-page-sticky position="bottom-left" :offset="[15, 9]">
       <t-btn-status />
+    </q-page-sticky>
+    <q-page-sticky
+      v-if="subdomainsStore.testingStatus"
+      position="bottom-right"
+      :offset="[15, 9]"
+    >
+      <div class="row items-center">
+        <q-spinner-hourglass color="light-green" size="2em" />
+        <div class="text-caption">
+          checando status de:
+          <q-badge
+            rounded
+            color="blue"
+            :label="subdomainsStore.testingTheUrl"
+          />
+        </div>
+      </div>
     </q-page-sticky>
   </q-page>
 </template>

@@ -42,9 +42,9 @@
 import { ref } from "vue";
 import { useGeneralStore } from "../../stores/general";
 import { useSubdomainsStore } from "../../stores/subdomains";
-const subdomainsStore = useSubdomainsStore();
-//@ts-ignore
 import { useQuasar } from "quasar";
+const subdomainsStore = useSubdomainsStore();
+
 const $q = useQuasar();
 const HOST: any = ref("");
 const generalStore = useGeneralStore();
@@ -72,7 +72,7 @@ async function searchSubdomains() {
     });
 }
 
-function showNotify(type: String, message: String, caption?: String) {
+function showNotify(type: string, message: string, caption?: string) {
   $q.notify({
     type,
     message,
@@ -85,7 +85,7 @@ function showNotify(type: String, message: String, caption?: String) {
 
 function showLoading() {
   $q.loading.show({
-    message: "Estamos buscando subdominios...",
+    message: "Estamos buscando subdominios para: \n " + HOST.value,
   });
 }
 </script>
