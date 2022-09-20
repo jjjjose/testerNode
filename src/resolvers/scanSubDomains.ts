@@ -73,7 +73,18 @@ export class scanSubDomainsResolver {
         finalResult.push(element);
       }
     }
+    // eliminar el string *. de los subdominios
+    let finalResult2 = [];
+    for (let i = 0; i < finalResult.length; i++) {
+      const element = finalResult[i];
+      if (element.subdomain.includes("*.")) {
+        let subdomain = element.subdomain.replace("*.", "");
+        finalResult2.push({ id: element.id, subdomain: subdomain });
+      } else {
+        finalResult2.push(element);
+      }
+    }
 
-    return finalResult;
+    return finalResult2;
   }
 }
