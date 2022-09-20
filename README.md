@@ -12,7 +12,7 @@ Herramienta para escanear posibles subdominios de un Dominio madre o Host, tambi
 
 ---
 
-## Instalacion
+## Instalación
 
 - clonar Repositorio, entrar en carpeta e instalar paquetes
 

@@ -38,6 +38,7 @@ const methods = [
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 class CheckStatusClass {
+  //checkeo de estado de un dominio
   async check(host: string, method: string, protocol: string) {
     let URL: string;
 
@@ -124,19 +125,35 @@ class CheckStatusClass {
     }
   }
   async viewStatus(url: string, method: string, protocol: string) {
+    //tiempo en milisegundos para la solicitud de la url
+    let tiempo: number = 3000;
+    // funcion para medir el tiempo de respuesta de un dominio
+    function timeout(ms: any, promise: any) {
+      return new Promise(function (resolve, reject) {
+        const timer = setTimeout(() => {
+          reject(new Error("timeout"));
+        }, ms);
+        promise
+          .then((res: any) => {
+            clearTimeout(timer);
+            resolve(res);
+          })
+          .catch((err: any) => {
+            clearTimeout(timer);
+            reject(err);
+          });
+      });
+    }
     let redirect: boolean = false;
-    let pageInfo = await fetch(url, {
-      method,
-    })
-      .then((res: any) => {
+    let data: any;
+    await timeout(tiempo, fetch(url, { method: method }))
+      .then(async (res: any) => {
         let redirectTo = null;
         if (res.redirected) {
           redirect = true;
           redirectTo = res.url;
         }
-        // console.log(`ok method ${method} ${url}`);
-        // devolver los enabezados de la respuesta
-        return {
+        data = {
           redirect,
           redirectTo,
           protocol,
@@ -147,10 +164,8 @@ class CheckStatusClass {
           headers: JSON.stringify(res.headers.raw()),
         };
       })
-      .catch((error: any) => {
-        // console.log(`error method ${method} ${url}`);
-        //mostrar error de manera elegante
-        return {
+      .catch(async (error: any) => {
+        data = {
           protocol,
           siteUrl: url,
           method,
@@ -158,7 +173,41 @@ class CheckStatusClass {
           error: `${Error(error)}`,
         };
       });
-    return await pageInfo;
+    return data;
+    // let pageInfo = await fetch(url, {
+    //   method,
+    // })
+    //   .then((res: any) => {
+    //     let redirectTo = null;
+    //     if (res.redirected) {
+    //       redirect = true;
+    //       redirectTo = res.url;
+    //     }
+    //     // console.log(`ok method ${method} ${url}`);
+    //     // devolver los enabezados de la respuesta
+    //     return {
+    //       redirect,
+    //       redirectTo,
+    //       protocol,
+    //       siteUrl: url,
+    //       method,
+    //       status: res.status,
+    //       statusText: res.statusText,
+    //       headers: JSON.stringify(res.headers.raw()),
+    //     };
+    //   })
+    //   .catch((error: any) => {
+    //     // console.log(`error method ${method} ${url}`);
+    //     //mostrar error de manera elegante
+    //     return {
+    //       protocol,
+    //       siteUrl: url,
+    //       method,
+    //       status: 404,
+    //       error: `${Error(error)}`,
+    //     };
+    //   });
+    // return await pageInfo;
   }
 }
 export default new CheckStatusClass();
