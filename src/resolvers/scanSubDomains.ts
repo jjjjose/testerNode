@@ -22,7 +22,13 @@ export class scanSubDomainsResolver {
     @Arg("dnsServer", () => String, { nullable: true }) dnsServer?: string
   ) {
     dnsServer === undefined || dnsServer === null ? "1.1.1.1" : dnsServer;
-    return await Subquest.scan(host, dictionary, dnsServer);
+    const data: any = await Subquest.scan(host, dictionary, dnsServer);
+    //enumerando elemento
+    //enumerando los elementos
+    let dataEnum = data.map((element: any, index: number) => {
+      return { id: index + 1, subdomain: element.subdomain };
+    });
+    return dataEnum;
   }
 
   //escanea con la API de VirusTotal
