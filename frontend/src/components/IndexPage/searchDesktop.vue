@@ -15,7 +15,7 @@
           color="cyan-9"
           bg-color="cyan-1"
           label-color="cyan-7"
-          class="col-9"
+          class="col-5"
           @keyup.enter="searchSubdomains"
           ref="target"
         >
@@ -23,7 +23,49 @@
             <q-icon name="search" color="cyan-7" />
           </template>
         </q-input>
+        <div class="col-5 row">
+          <q-radio
+            size="sm"
+            keep-color
+            v-model="type"
+            val="normal"
+            label="Normal"
+            color="teal"
+            class="col-3"
+          >
+            <q-tooltip anchor="top middle" self="center middle">
+              Escaneo rápido con API publicas.
+            </q-tooltip>
+          </q-radio>
+          <q-radio
+            size="sm"
+            keep-color
+            v-model="type"
+            val="bruteforce"
+            label="Brute Force"
+            color="teal"
+            class="col"
+          >
+            <q-tooltip anchor="top middle" self="center middle">
+              Escaneo con Diccionario de palabras clave, demora mas tiempo, debe
+              seleccionar un diccionario.
+            </q-tooltip>
+          </q-radio>
+          <q-select
+            dense
+            filled
+            v-model="dictionary"
+            :options="optionsDictionary"
+            label="Selec. diccionario"
+            class="col"
+          >
+            <q-tooltip anchor="top middle" self="center middle">
+              Diccionario con cantidad de Palabras clave, solo para BruteForce.
+            </q-tooltip>
+          </q-select>
+        </div>
         <q-btn
+          :disable="disableSearch"
           dense
           push
           color="green-7"
@@ -52,7 +94,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { Ref, ref, watch } from "vue";
 import { useGeneralStore } from "../../stores/general";
 import { useSubdomainsStore } from "../../stores/subdomains";
 import { useQuasar } from "quasar";
@@ -66,28 +108,57 @@ const subdomainsStore = useSubdomainsStore();
 const $q = useQuasar();
 const HOST: any = ref("");
 const generalStore = useGeneralStore();
+// const menu = ref(false);
+const dictionary = ref("");
+const optionsDictionary = ref([50, 100, 250, 1000, 5000]);
+const type = ref("normal");
+const disableSearch = ref(false);
 
 async function searchSubdomains() {
+  // menu.value = false;
   showLoading();
   generalStore.changeLoading(true);
-  await subdomainsStore
-    .searchSubdomains(HOST.value)
-    .then((res) => {
-      $q.loading.hide();
-      generalStore.changeLoading(false);
-      showNotify(
-        "positive",
-        "Busqueda terminada con exito.",
-        "Se encontraron un total de: " + res + " subdominios"
-      );
-      subdomainsStore.changeCheckStatus(false);
-    })
-    .catch((err) => {
-      $q.loading.hide();
-      generalStore.changeLoading(false);
-      showNotify("negative", "Algo salio mal!, Intentalo nuevamente.", err);
-      subdomainsStore.changeCheckStatus(true);
-    });
+
+  //escanear subdominios con la opcion normal
+  if (type.value === "normal") {
+    await subdomainsStore
+      .searchSubdomains(HOST.value)
+      .then((res) => {
+        $q.loading.hide();
+        generalStore.changeLoading(false);
+        showNotify(
+          "positive",
+          "Busqueda terminada con exito.",
+          "Se encontraron un total de: " + res + " subdominios"
+        );
+        subdomainsStore.changeCheckStatus(false);
+      })
+      .catch((err) => {
+        $q.loading.hide();
+        generalStore.changeLoading(false);
+        showNotify("negative", "Algo salio mal!, Intentalo nuevamente.", err);
+        subdomainsStore.changeCheckStatus(true);
+      });
+  } else if (type.value === "bruteforce") {
+    await subdomainsStore
+      .searchBruteForce(HOST.value, Number(dictionary.value))
+      .then((res) => {
+        $q.loading.hide();
+        generalStore.changeLoading(false);
+        showNotify(
+          "positive",
+          "BruteForce terminado con exito.",
+          "Se encontraron un total de: " + res + " subdominios"
+        );
+        subdomainsStore.changeCheckStatus(false);
+      })
+      .catch((err) => {
+        $q.loading.hide();
+        generalStore.changeLoading(false);
+        showNotify("negative", "Algo salio mal!, Intentalo nuevamente.", err);
+        subdomainsStore.changeCheckStatus(true);
+      });
+  }
 }
 
 function showNotify(type: string, message: string, caption?: string) {
@@ -106,4 +177,22 @@ function showLoading() {
     message: "Estamos buscando subdominios para: \n " + HOST.value,
   });
 }
+watch(type, (newType) => {
+  if (newType === "bruteforce") {
+    disableSearch.value = true;
+    dictionary.value = "";
+  } else if (newType === "normal") {
+    disableSearch.value = false;
+    dictionary.value = "";
+  }
+});
+watch(dictionary, (newDictionary) => {
+  if (
+    newDictionary !== "" ||
+    newDictionary !== null ||
+    newDictionary !== undefined
+  ) {
+    disableSearch.value = false;
+  }
+});
 </script>
