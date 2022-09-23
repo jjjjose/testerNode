@@ -52,6 +52,7 @@
             </q-tooltip>
           </q-radio>
           <q-select
+            :disable="disableSelect"
             dense
             filled
             v-model="dictionary"
@@ -113,6 +114,7 @@ const dictionary = ref("");
 const optionsDictionary = ref([50, 100, 250, 1000, 5000]);
 const type = ref("normal");
 const disableSearch = ref(false);
+const disableSelect = ref(true);
 
 async function searchSubdomains() {
   // menu.value = false;
@@ -179,9 +181,11 @@ function showLoading() {
 }
 watch(type, (newType) => {
   if (newType === "bruteforce") {
+    disableSelect.value = false;
     disableSearch.value = true;
     dictionary.value = "";
   } else if (newType === "normal") {
+    disableSelect.value = true;
     disableSearch.value = false;
     dictionary.value = "";
   }
