@@ -43,7 +43,7 @@ poner sus datos en el archivo archivo `.env`
 ```env
 IP_PUBLIC="XXX.XXX.XXX.XXX" #si desea montar el proyecto en un VPS o server publico puede agregar su ip, valor por default = "localhost"
 PORT_PUBLIC=3030 #en caso de poner en un puerto especifico, valor por default 3030
-HTTPS="false" #si quiere habilitar externamente https, puede habilitar esta opcion, valor por defecto "false"
+HTTPS="false" #si quiere habilitar externamente https, puede habilitar esta opción, valor por defecto "false"
 REMOVE_PORT="false" #si desea usar Docker y reedireccionar el trafico a puerto normal, es necesario poner "true", valor por defecto "false"
 VIRUSTOTAL_API_KEY="XXXXXXX" #token de virus total
 ```
@@ -56,9 +56,9 @@ VIRUSTOTAL_API_KEY="XXXXXXX" #token de virus total
 
 ![scan](assets/img/escaner-subdominio.png)
 
-### Test de status en metodos
+### Test de status en métodos o verbos
 
-- haga click al boton `ver Status`, antes debe buscar subdominios...
+- haga click al botón `ver Status`, antes debe buscar subdominios...
 
 ![scan](assets/img/ver-status.png)
 
