@@ -8,7 +8,7 @@ Herramienta para escanear posibles subdominios de un Dominio madre o Host, tambi
 2. NODEjs v16.17.X^
 3. yarn
 4. Quasar CLI
-5. Token API key VirutTotal
+5. Token API key VirusTotal
 
 ---
 
