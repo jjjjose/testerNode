@@ -1,0 +1,13 @@
+POST http://localhost:3030/gql
+Content-Type: application/json
+
+query ScanByVirusTotal($host: String!) {
+  scanByVirusTotal(host: $host) {
+    status
+    subdomain
+  }
+}
+
+{
+  "host": "entel.bo"
+}

@@ -5,7 +5,7 @@ Herramienta para escanear posibles subdominios de un Dominio madre o Host, tambi
 ## Requisitos
 
 1. GIT
-2. NODEjs v16.17.X^
+2. NODEjs v16.X.X^
 3. yarn
 4. Quasar CLI
 5. Token API key VirusTotal
