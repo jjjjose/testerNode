@@ -95,7 +95,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { Ref, ref, watch } from "vue";
+import { onMounted, Ref, ref, watch } from "vue";
 import { useGeneralStore } from "../../stores/general";
 import { useSubdomainsStore } from "../../stores/subdomains";
 import { useQuasar } from "quasar";

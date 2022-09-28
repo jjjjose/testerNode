@@ -1,17 +1,10 @@
-/**
- * This file is used specifically for security reasons.
- * Here you can access Nodejs stuff and inject functionality into
- * the renderer thread (accessible there through the "window" object)
- *
- * WARNING!
- * If you import anything from node_modules, then make sure that the package is specified
- * in package.json > dependencies and NOT in devDependencies
- *
- * Example (injects window.myAPI.doAThing() into renderer thread):
- *
- *   import { contextBridge } from 'electron'
- *
- *   contextBridge.exposeInMainWorld('myAPI', {
- *     doAThing: () => {}
- *   })
- */
+import { contextBridge, ipcRenderer } from "electron";
+
+//registrando funciones para inyectar en el renderer
+contextBridge.exposeInMainWorld("Scan", {
+  // hiHoli: () => ipcRenderer.invoke("Holi:hiHello"),
+  // scanByCrt: () => ipcRenderer.invoke("Scan:scanByCrt"),
+  // scanByVirusTotal: () => ipcRenderer.invoke("Scan:scanByVirusTotal"),
+  // scanByHackertarget: () => ipcRenderer.invoke("Scan:scanByHackertarget"),
+  scanAllApis: (host: string) => ipcRenderer.invoke("Scan:scanAllApis", host),
+});

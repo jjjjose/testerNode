@@ -121,35 +121,19 @@ export const useSubdomainsStore = defineStore("subdomains", {
 
   actions: {
     async searchSubdomains(domain: string) {
+      //@ts-ignore
+      let Scan: any = window.Scan;
+      // console.log(await Scan.scanAllApis(domain));
       this.changeCheckStatusTable(false);
       this.subdomains = [];
-      //solicitar subdominios a la api graphql
-      const query = `query ScanAllApis($host: String!) {
-        scanAllApis(host: $host) {
-          id
-          subdomain
-        }
-      }`;
-
-      let variables = {
-        host: domain,
-      };
       return new Promise(async (resolve, reject) => {
-        await axios
-          .post(URL, {
-            query,
-            variables,
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-          .then((res) => {
-            this.subdomains = res.data.data.scanAllApis;
-            resolve(this.subdomains.length);
-          })
-          .catch((err) => {
-            reject(`${Error(err)}`);
-          });
+        let data = await Scan.scanAllApis(domain);
+        if (data.length > 0) {
+          this.subdomains = data;
+          resolve(this.subdomains.length);
+        } else {
+          reject("No se encontraron subdominios");
+        }
       });
     },
     async searchBruteForce(domain: any, dictionary: number) {
