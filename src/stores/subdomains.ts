@@ -19,6 +19,8 @@ if (HTTPS === "true") {
     URL = `http://${IP_PUBLIC}/gql`;
   }
 }
+//@ts-ignore
+let Scan: any = window.Scan;
 
 export const useSubdomainsStore = defineStore("subdomains", {
   state: () => ({
@@ -121,9 +123,6 @@ export const useSubdomainsStore = defineStore("subdomains", {
 
   actions: {
     async searchSubdomains(domain: string) {
-      //@ts-ignore
-      let Scan: any = window.Scan;
-      // console.log(await Scan.scanAllApis(domain));
       this.changeCheckStatusTable(false);
       this.subdomains = [];
       return new Promise(async (resolve, reject) => {
@@ -248,50 +247,34 @@ export const useSubdomainsStore = defineStore("subdomains", {
       for (let i = 0; i < subdomains.length; i++) {
         let host = subdomains[i].subdomain;
         this.testingTheUrl = host;
-        let variables = {
-          protocol: "all",
-          method: "all",
-          host,
+        //armando url
+        let url = "";
+        let data = await Scan.checkStatus(host, "all", "all");
+        let dataHTTP: any = {
+          subdomain: `http://${data.host}`,
+          statusGET: data.infoHTTP.infoGET.status,
+          statusPOST: data.infoHTTP.infoPOST.status,
+          statusPUT: data.infoHTTP.infoPUT.status,
+          statusDELETE: data.infoHTTP.infoDELETE.status,
+          statusPATCH: data.infoHTTP.infoPATCH.status,
+          statusHEAD: data.infoHTTP.infoHEAD.status,
+          statusOPTIONS: data.infoHTTP.infoOPTIONS.status,
+          statusTRACE: data.infoHTTP.infoTRACE.status,
         };
-        // console.log(variables);
-        await axios
-          .post(URL, {
-            query,
-            variables,
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-          .then((res) => {
-            //armando url
-            let url = "";
-            let data = res.data.data.checkStatus;
-            let dataHTTP: any = {
-              subdomain: `http://${data.host}`,
-              statusGET: data.infoHTTP.infoGET.status,
-              statusPOST: data.infoHTTP.infoPOST.status,
-              statusPUT: data.infoHTTP.infoPUT.status,
-              statusDELETE: data.infoHTTP.infoDELETE.status,
-              statusPATCH: data.infoHTTP.infoPATCH.status,
-              statusHEAD: data.infoHTTP.infoHEAD.status,
-              statusOPTIONS: data.infoHTTP.infoOPTIONS.status,
-              statusTRACE: data.infoHTTP.infoTRACE.status,
-            };
-            this.subdomainsChecked.push(dataHTTP);
-            let dataHTTPS: any = {
-              subdomain: `https://${data.host}`,
-              statusGET: data.infoHTTPS.infoGET.status,
-              statusPOST: data.infoHTTPS.infoPOST.status,
-              statusPUT: data.infoHTTPS.infoPUT.status,
-              statusDELETE: data.infoHTTPS.infoDELETE.status,
-              statusPATCH: data.infoHTTPS.infoPATCH.status,
-              statusHEAD: data.infoHTTPS.infoHEAD.status,
-              statusOPTIONS: data.infoHTTPS.infoOPTIONS.status,
-              statusTRACE: data.infoHTTPS.infoTRACE.status,
-            };
-            this.subdomainsChecked.push(dataHTTPS);
-          })
-          .catch((err) => {});
+        this.subdomainsChecked.push(dataHTTP);
+        let dataHTTPS: any = {
+          subdomain: `https://${data.host}`,
+          statusGET: data.infoHTTPS.infoGET.status,
+          statusPOST: data.infoHTTPS.infoPOST.status,
+          statusPUT: data.infoHTTPS.infoPUT.status,
+          statusDELETE: data.infoHTTPS.infoDELETE.status,
+          statusPATCH: data.infoHTTPS.infoPATCH.status,
+          statusHEAD: data.infoHTTPS.infoHEAD.status,
+          statusOPTIONS: data.infoHTTPS.infoOPTIONS.status,
+          statusTRACE: data.infoHTTPS.infoTRACE.status,
+        };
+        this.subdomainsChecked.push(dataHTTPS);
+
         if (i == subdomains.length - 1) {
           this.changeTestingStatus(false);
           stat = true;

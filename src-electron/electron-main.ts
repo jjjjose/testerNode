@@ -20,6 +20,9 @@ function createWindow() {
   ipcMain.handle("Scan:scanAllApis", async (event, host) => {
     return await Scan.scanAllApis(host);
   });
+  ipcMain.handle("Scan:checkStatus", async (event, host, method, protocol) => {
+    return await Scan.check(host, method, protocol);
+  });
   /**
    * Initial window options
    */

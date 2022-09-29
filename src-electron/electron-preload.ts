@@ -7,4 +7,6 @@ contextBridge.exposeInMainWorld("Scan", {
   // scanByVirusTotal: () => ipcRenderer.invoke("Scan:scanByVirusTotal"),
   // scanByHackertarget: () => ipcRenderer.invoke("Scan:scanByHackertarget"),
   scanAllApis: (host: string) => ipcRenderer.invoke("Scan:scanAllApis", host),
+  checkStatus: (host: string, method: string, protocol: string) =>
+    ipcRenderer.invoke("Scan:checkStatus", host, method, protocol),
 });
