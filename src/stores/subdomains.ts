@@ -138,32 +138,14 @@ export const useSubdomainsStore = defineStore("subdomains", {
     async searchBruteForce(domain: any, dictionary: number) {
       this.changeCheckStatusTable(false);
       this.subdomains = [];
-      const query = `query ScanBySubquest($host: String!, $dictionary: Float!) {
-        scanBySubquest(host: $host, dictionary: $dictionary) {
-          id
-          subdomain
-        }
-      }`;
-      let variables = {
-        dictionary,
-        host: domain,
-      };
+
       return new Promise(async (resolve, reject) => {
-        await axios
-          .post(URL, {
-            query,
-            variables,
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-          .then((res) => {
-            this.subdomains = res.data.data.scanBySubquest;
-            resolve(this.subdomains.length);
-          })
-          .catch((err) => {
-            reject(`${Error(err)}`);
-          });
+        const data = await Scan.bruteForce(domain, dictionary);
+        if (data.length > 0) {
+          this.subdomains = data;
+          resolve(this.subdomains.length);
+        }
+        reject("No se encontraron subdominios");
       });
     },
     async checkSubdomainStatus() {

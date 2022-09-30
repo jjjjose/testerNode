@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+const subquest = require("subquest");
 // desactivando certificado TLS SSL para node-fetch
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const API_KEY = process.env.VIRUSTOTAL_API_KEY;
@@ -288,6 +289,39 @@ class Scan {
         };
       });
     return data;
+  }
+  async scanSubquest(
+    host: string,
+    dictionaryNumber: number,
+    dnsServer?: string
+  ) {
+    let dictionary = "top_" + dictionaryNumber;
+    //retornar el resultado del scan de subquest con una promesa
+    return new Promise((resolve, reject) => {
+      subquest.getSubDomains(
+        {
+          host, // required
+          rateLimit: "4", // four requests at time
+          dnsServer, // custom DNS server
+          dictionary, // dictionary file to use
+        },
+        (err: any, results: any) => {
+          if (err) {
+            console.log("Error:", err);
+            return;
+          }
+          resolve(this.convertSQ(results));
+        }
+      );
+    });
+  }
+  convertSQ(data: any) {
+    let domain = [];
+    for (let i = 0; i < data.length; i++) {
+      const element = data[i];
+      domain.push({ subdomain: element.hostname });
+    }
+    return domain;
   }
 }
 export default new Scan();

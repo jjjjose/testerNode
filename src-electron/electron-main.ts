@@ -23,6 +23,9 @@ function createWindow() {
   ipcMain.handle("Scan:checkStatus", async (event, host, method, protocol) => {
     return await Scan.check(host, method, protocol);
   });
+  ipcMain.handle("Scan:bruteForce", async (event, host, dictionaryNumber) => {
+    return await Scan.scanSubquest(host, dictionaryNumber);
+  });
   /**
    * Initial window options
    */

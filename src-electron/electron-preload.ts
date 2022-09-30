@@ -9,4 +9,6 @@ contextBridge.exposeInMainWorld("Scan", {
   scanAllApis: (host: string) => ipcRenderer.invoke("Scan:scanAllApis", host),
   checkStatus: (host: string, method: string, protocol: string) =>
     ipcRenderer.invoke("Scan:checkStatus", host, method, protocol),
+  bruteForce: (host: string, dictionaryNumber: number) =>
+    ipcRenderer.invoke("Scan:bruteForce", host, dictionaryNumber),
 });
