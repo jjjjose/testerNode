@@ -12,13 +12,13 @@
     "@quasar/extras": "^1.0.0",
     "@vueuse/core": "^9.2.0",
     "axios": "^0.21.1",
+    "node-fetch": "2.6.1",
     "pinia": "^2.0.11",
     "quasar": "^2.8.3",
+    "subquest": "1.5.3",
     "vue": "^3.0.0",
     "vue-i18n": "^9.2.2",
-    "vue-router": "^4.0.0",
-    "node-fetch": "2.6.1",
-    "subquest": "1.5.3"
+    "vue-router": "^4.0.0"
   },
   "devDependencies": {
     "@intlify/vite-plugin-vue-i18n": "^3.3.1",
@@ -27,6 +27,7 @@
     "autoprefixer": "^10.4.2",
     "dotenv": "^16.0.2",
     "electron": "^21.1.1",
+    "electron-builder": "^22.4.0",
     "typescript": "^4.5.4"
   },
   "engines": {
