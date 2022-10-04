@@ -107,16 +107,25 @@ const { focused } = useFocus(target, { initialValue: true });
 
 const subdomainsStore = useSubdomainsStore();
 const $q = useQuasar();
-const HOST: any = ref("");
+const HOST = ref("");
 const generalStore = useGeneralStore();
 // const menu = ref(false);
 const dictionary = ref("");
 const optionsDictionary = ref([50, 100, 250, 1000, 5000]);
 const type = ref("normal");
-const disableSearch = ref(false);
+const disableSearch = ref(true);
 const disableSelect = ref(true);
 
 async function searchSubdomains() {
+  if (HOST.value === "") {
+    $q.notify({
+      message: "Escribe un HOST",
+      color: "negative",
+      position: "top",
+      timeout: 2000,
+    });
+    return;
+  }
   // menu.value = false;
   showLoading();
   generalStore.changeLoading(true);
@@ -179,6 +188,14 @@ function showLoading() {
     message: "Estamos buscando subdominios para: \n " + HOST.value,
   });
 }
+watch(HOST, (val) => {
+  if (val === "") {
+    disableSearch.value = true;
+  } else {
+    disableSearch.value = false;
+  }
+  // disableSearch.value = false;
+});
 watch(type, (newType) => {
   if (newType === "bruteforce") {
     disableSelect.value = false;
@@ -186,7 +203,7 @@ watch(type, (newType) => {
     dictionary.value = "";
   } else if (newType === "normal") {
     disableSelect.value = true;
-    disableSearch.value = false;
+    // disableSearch.value = false;
     dictionary.value = "";
   }
 });
