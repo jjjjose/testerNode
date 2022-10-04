@@ -1,8 +1,8 @@
 {
   "name": "frontend",
-  "version": "0.0.1",
+  "version": "2.5.0",
   "description": "project testernode 2",
-  "productName": "tester node front app",
+  "productName": "testerNode",
   "author": "jjjjose <jjjjoseignacio@gmail.com>",
   "private": true,
   "scripts": {

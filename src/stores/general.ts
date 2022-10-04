@@ -5,6 +5,7 @@ export const useGeneralStore = defineStore("general", {
     width: 0,
     height: 0,
     loading: false,
+    version: "2.5.0",
   }),
   // getters: {
   //   loading: (state) => !state.loading,

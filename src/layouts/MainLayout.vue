@@ -14,7 +14,7 @@
 
         <q-toolbar-title> TesterNode App </q-toolbar-title>
 
-        <div>2.0.0</div>
+        <div>{{ generalStore.version }}</div>
       </q-toolbar>
     </q-header>
     <q-footer> <t-footer /></q-footer>
@@ -39,10 +39,13 @@
 
 <script setup lang="ts">
 import tFooter from "components/IndexPage/tFooter.vue";
+import { useGeneralStore } from "stores/general";
 import { ref } from "vue";
 import EssentialLink, {
   EssentialLinkProps,
 } from "components/EssentialLink.vue";
+
+const generalStore = useGeneralStore();
 
 const essentialLinks: EssentialLinkProps[] = [
   {
