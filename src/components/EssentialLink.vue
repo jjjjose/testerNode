@@ -5,7 +5,12 @@
     target="_blank"
     :href="link"
   > -->
-  <q-item clickable tag="a" :href="link">
+  <q-item
+    clickable
+    :to="link"
+    active-class="bg-teal-2 text-grey-9"
+    :active="link === currentRoute.path ? true : false"
+  >
     <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>
@@ -24,6 +29,13 @@ export interface EssentialLinkProps {
   link?: string;
   icon?: string;
 }
+//mostrando la ruta actual
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const { currentRoute } = router;
+console.log(currentRoute.value.path);
+
 withDefaults(defineProps<EssentialLinkProps>(), {
   caption: "",
   link: "#",

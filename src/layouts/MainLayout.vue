@@ -54,6 +54,12 @@ const essentialLinks: EssentialLinkProps[] = [
     icon: "search",
     link: "/",
   },
+  {
+    title: "Config",
+    caption: "Configuracion de la aplicacion",
+    icon: "settings",
+    link: "/config",
+  },
 ];
 
 const leftDrawerOpen = ref(false);
