@@ -6,6 +6,7 @@ export const useGeneralStore = defineStore("general", {
     height: 0,
     loading: false,
     version: "2.5.0",
+    API_KEY: localStorage.getItem("API_KEY") || "",
   }),
   // getters: {
   //   loading: (state) => !state.loading,
