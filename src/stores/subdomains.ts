@@ -1,7 +1,9 @@
 //env
 
 import { defineStore } from "pinia";
-import axios, { AxiosInstance } from "axios";
+import { useGeneralStore } from "./general";
+const generalStore = useGeneralStore();
+
 let PORT_PUBLIC = process.env.PORT_PUBLIC || 3030;
 let IP_PUBLIC = process.env.IP_PUBLIC || "localhost";
 let URL: any;
@@ -123,10 +125,11 @@ export const useSubdomainsStore = defineStore("subdomains", {
 
   actions: {
     async searchSubdomains(domain: string) {
+      let API_KEY = generalStore.API_KEY;
       this.changeCheckStatusTable(false);
       this.subdomains = [];
       return new Promise(async (resolve, reject) => {
-        let data = await Scan.scanAllApis(domain);
+        let data = await Scan.scanAllApis(domain, API_KEY);
         if (data.length > 0) {
           this.subdomains = data;
           resolve(this.subdomains.length);
@@ -268,6 +271,15 @@ export const useSubdomainsStore = defineStore("subdomains", {
         } else {
           reject(false);
         }
+      });
+    },
+    async checkAPI(API_KEY: string) {
+      return new Promise(async (resolve, reject) => {
+        let data = await Scan.verifyAPIvirusTotal(API_KEY);
+        if (data) {
+          resolve(true);
+        }
+        reject(false);
       });
     },
     changeCheckStatus(d: boolean) {

@@ -34,7 +34,7 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 const { currentRoute } = router;
-console.log(currentRoute.value.path);
+// console.log(currentRoute.value.path);
 
 withDefaults(defineProps<EssentialLinkProps>(), {
   caption: "",

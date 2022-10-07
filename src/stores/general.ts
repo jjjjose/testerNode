@@ -20,5 +20,8 @@ export const useGeneralStore = defineStore("general", {
     changeLoading(data: boolean) {
       this.loading = data;
     },
+    changeAPI_KEY(data: string) {
+      this.API_KEY = data;
+    },
   },
 });

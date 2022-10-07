@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 const subquest = require("subquest");
 // desactivando certificado TLS SSL para node-fetch
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-const API_KEY = process.env.VIRUSTOTAL_API_KEY;
+// const API_KEY = process.env.VIRUSTOTAL_API_KEY;
 const methods = [
   "GET",
   "POST",
@@ -39,7 +39,7 @@ class Scan {
     );
     return unique;
   }
-  async byVirusTotal(host: string) {
+  async byVirusTotal(host: string, API_KEY: string) {
     let urlBase = `https://www.virustotal.com/api/v3/domains/${host}/subdomains?relationships=resolutions`;
     const subdomain = await fetch(urlBase, {
       method: "GET",
@@ -89,6 +89,20 @@ class Scan {
     }
     return domain;
   }
+  async verifyAPIvirusTotal(API_KEY: string) {
+    let urlBase = `https://www.virustotal.com/api/v3/domains/ticon.vip/subdomains?relationships=resolutions`;
+    const subdomain = await fetch(urlBase, {
+      method: "GET",
+      headers: {
+        "x-apikey": API_KEY,
+      },
+    }).then((res: any) => res.json());
+    //si el token no es valido
+    if (subdomain.error) {
+      return false;
+    }
+    return true;
+  }
   async byHackerTarget(host: string) {
     let urlBase = `https://api.hackertarget.com/hostsearch/?q=${host}`;
     const resp = await fetch(urlBase, {
@@ -112,10 +126,10 @@ class Scan {
     }
     return subdomain;
   }
-  async scanAllApis(host: string) {
+  async scanAllApis(host: string, API_KEY: string) {
     let subdomains = [];
     let subdomains1 = await this.byCrt(host);
-    let subdomains2 = await this.byVirusTotal(host);
+    let subdomains2 = await this.byVirusTotal(host, API_KEY);
     let subdomains3 = await this.byHackerTarget(host);
     // let subdomains4 = await this.scanByCloudflare(host);
     subdomains = subdomains1.concat(subdomains2, subdomains3);

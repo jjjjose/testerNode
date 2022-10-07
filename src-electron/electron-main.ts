@@ -17,14 +17,17 @@ let mainWindow: BrowserWindow | undefined;
 
 function createWindow() {
   //poniendo las funcionalidades de electron en el main
-  ipcMain.handle("Scan:scanAllApis", async (event, host) => {
-    return await Scan.scanAllApis(host);
+  ipcMain.handle("Scan:scanAllApis", async (event, host, API_KEY) => {
+    return await Scan.scanAllApis(host, API_KEY);
   });
   ipcMain.handle("Scan:checkStatus", async (event, host, method, protocol) => {
     return await Scan.check(host, method, protocol);
   });
   ipcMain.handle("Scan:bruteForce", async (event, host, dictionaryNumber) => {
     return await Scan.scanSubquest(host, dictionaryNumber);
+  });
+  ipcMain.handle("Scan:verifyAPIvirusTotal", async (event, API_KEY) => {
+    return await Scan.verifyAPIvirusTotal(API_KEY);
   });
   /**
    * Initial window options
