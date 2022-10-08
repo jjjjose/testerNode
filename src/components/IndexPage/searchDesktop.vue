@@ -7,6 +7,7 @@
       </div>
       <div class="row q-gutter-sm q-py-xs">
         <q-input
+          :disable="disableInput"
           rounded
           outlined
           v-model="HOST"
@@ -25,6 +26,7 @@
         </q-input>
         <div class="col-5 row">
           <q-radio
+            :disable="disableInput"
             size="sm"
             keep-color
             v-model="type"
@@ -38,6 +40,7 @@
             </q-tooltip>
           </q-radio>
           <q-radio
+            :disable="disableInput"
             size="sm"
             keep-color
             v-model="type"
@@ -115,6 +118,15 @@ const optionsDictionary = ref([50, 100, 250, 1000, 5000]);
 const type = ref("normal");
 const disableSearch = ref(true);
 const disableSelect = ref(true);
+const disableInput = ref(true);
+onMounted(() => {
+  if (generalStore.API_KEY !== "") {
+    disableInput.value = false;
+  } else {
+    disableInput.value = true;
+    showNotify("warning", "No tienes una API_KEY, registra una.");
+  }
+});
 
 async function searchSubdomains() {
   if (HOST.value === "") {

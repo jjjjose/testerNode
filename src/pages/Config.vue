@@ -3,7 +3,7 @@ import { onMounted, ref } from "vue";
 import { useQuasar } from "quasar";
 import { useGeneralStore } from "../stores/general";
 import { useSubdomainsStore } from "../stores/subdomains";
-import { api } from "src/boot/axios";
+
 const subdomainsStore = useSubdomainsStore();
 const generalStore = useGeneralStore();
 const $q = useQuasar();
