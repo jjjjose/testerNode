@@ -13,7 +13,9 @@ Herramienta para escanear posibles subdominios de un Dominio madre o Host, tambi
 - Simplemente descarga el ultimo Release conforme a tu sistema operativo.
 
 ## Compilacion manual
+
 - Si desea compilar el proyecto manualmente, debe tener instalado lo siguiente
+
 1. Nodejs v16.X
 2. quasar-cli
 3. git
@@ -27,6 +29,8 @@ npm install
 quasar build -m electron
 ```
 
+- El ejecutable se encontrara en la carpeta dist/electron
+- Recuerde que cada ejecutable es creado en el sistema operativo donde se compila, por lo que si desea compilar en Windows, debe hacerlo en Windows, si desea compilar en Linux, debe hacerlo en Linux, etc.
 
 ## Modo de uso Básico
 
