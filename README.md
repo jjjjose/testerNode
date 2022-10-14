@@ -6,6 +6,11 @@ Herramienta para escanear posibles subdominios de un Dominio madre o Host, tambi
 
 1. Token API key VirusTotal
 
+- Para obtener la API_KEY de VirusTotal, se debe crear una cuenta en la página oficial de VirusTotal, https://www.virustotal.com/gui/join-us
+- Una vez creada la cuenta, se debe ingresar a la sección de API, https://www.virustotal.com/gui/user/[NICK]/apikey
+- NICK = Nickname de la cuenta de VirusTotal
+- Luego de pega la API_KEY en el apartado de configuración de TesterNode
+
 ---
 
 ## Instalación
