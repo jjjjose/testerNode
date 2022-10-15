@@ -3,7 +3,7 @@
     <q-table
       v-if="subdomainsStore.checkStatusTable"
       class="my-sticky-header-column-table"
-      :style="{ height: height - 200 + 'px' }"
+      :style="{ height: height - 300 + 'px' }"
       dense
       title="Subdominios"
       :rows="subdomainsStore.subdomainsChecked"
@@ -152,7 +152,7 @@
     <q-table
       v-else
       class="my-sticky-header-column-table"
-      :style="{ height: height - 200 + 'px' }"
+      :style="{ height: height - 300 + 'px' }"
       dense
       title="Subdominios"
       :rows="subdomainsStore.subdomains"
